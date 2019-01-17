@@ -8,6 +8,6 @@ services:
 script:
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 - "mkdir tmp && pushd tmp && curl -L -o qemu-arm-static.tar.gz https://github.com/multiarch/qemu-user-static/releases/download/v2.11.0/qemu-arm-static.tar.gz && tar xzf qemu-arm-static.tar.gz && popd"
-- docker build -t sqlite3-builder .
+- travis_wait docker build -t sqlite3-builder .
 - docker cp `docker create sqlite3-builder`:/node_modules/sqlite3/lib/binding/node-v57-linux-arm/node_sqlite3.node .
 - file node_sqlite3.node
